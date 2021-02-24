@@ -8,7 +8,8 @@ setup_options = dict(
     author_email = "tallen2@outlook.com",
     url         = "https://github.com/tall3n/pickem-ripe.git",
     classifiers = [
-      "Programming Language :: Python :: 3",
+      "Programming Language :: Python :: 3.6",
+      "Programming Language :: Python :: 3.7",
       "Programming Language :: Python :: 3.8",
       "Programming Language :: Python :: 3.9",
     ]
