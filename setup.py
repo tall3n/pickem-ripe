@@ -1,8 +1,5 @@
-try:
-  import setuptools
-  from setuptools import setup
-except ImportError:
-  print("Please install setuptools.")
+import setuptools
+from setuptools import setup
 
 setup_options = dict(
     name        = "pickem",
@@ -16,7 +13,7 @@ setup_options = dict(
       "Programming Language :: Python :: 3.9",
     ]
 )
-setup_options["version"] = "1.0.0"
+setup_options["version"] = "1.0.2"
 setup_options.update(dict(
   packages         = ['pickem'],
 ))
