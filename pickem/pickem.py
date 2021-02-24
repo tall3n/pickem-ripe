@@ -75,6 +75,6 @@ if __name__ == '__main__':
     sys.exit(2)
   found, result_cidr = p.find_ip()
   if found:
-    print(f"Found ip address: {ip_address} in cidr: {result_cidr}")
+    print(f"Found ip address: {ip_address} in CIDR: {result_cidr}")
   else:
-    print(f"Did not find a cidr for the given IP: {ip_address}")
+    print(f"Did not find a CIDR for the given IP: {ip_address}")
