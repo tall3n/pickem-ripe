@@ -9,17 +9,12 @@ import logging
 import re
 import ipaddress
 
-
 class Pickem():
     def __init__(self, ip_address: str) -> None:
         self.ripe_api = "https://stat.ripe.net/data/country-resource-list/data.json?resource=US&v4_format=prefix"
         self.ip_cidr_list = []
         self.ip_address = ip_address
-        if not self.ip_valid:
-            logging.error(f"Provide a proper IPV4 address, provided: {ip_address}")
-            raise ValueError
-            return
-
+        self.headers = {}
     @property
     def ip_valid(self) -> bool:
         """Determines if the provided IP Address is Valid"""
@@ -40,15 +35,23 @@ class Pickem():
         cidr_list = [str(ip) for ip in ipaddress.IPv4Network(cidr)]
         return cidr_list
 
+    # would like to implement retry decorator here.
+    def get_cidr_list(self):
+        response = requests.get(self.ripe_api, )
+        self.headers = response.headers
+        return response
+
     @property
     def source_cidr_list(self) -> list:
         """Retrieves CIDR list from the RIPE Endpoint"""
+        response = self.get_cidr_list()
 
-        response = requests.get(self.ripe_api)
+        if response is None or response == requests.exceptions.Timeout:
+            return [] 
         if response.status_code == 200:
             return response.json().get("data").get("resources").get("ipv4")
-        logging.error(f"""Recieved non 200 status code from RIPE Endpoint,
-                      status code: {response.status_code}""")
+            logging.error(f"""Recieved non 200 status code from RIPE Endpoint,
+                        status code: {response.status_code}""")
         return []
 
     @property
@@ -62,6 +65,7 @@ class Pickem():
             logging.error("Unable to split ip address into first two octets.")
             return ""
         first_two_octets = ".".join(two_octets)
+        logging.info(f"Collected offsets {first_two_octets} for ip: {self.ip_address}")
         return first_two_octets
 
     def find_ip(self) -> Tuple[bool, str]:
