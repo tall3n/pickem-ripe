@@ -5,7 +5,7 @@ except ImportError:
   print("Please install setuptools.")
 
 setup_options = dict(
-    name        = "pickem-ripe",
+    name        = "pickem",
     description = "An application that allows you to verify if the provided IP address exists within the RIPE Coordination Center's IPV4 CIDR List",
     author      = "tall3n",
     author_email = "tallen2@outlook.com",
