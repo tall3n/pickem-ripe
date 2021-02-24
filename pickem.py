@@ -35,7 +35,6 @@ class Pickem():
 
   @property
   def source_cidr_list(self) -> list:
-    # error handle this real quick quick
     response = requests.get(self.ripe_api)
     if response.status_code == 200:
       return response.json().get("data").get("resources").get("ipv4")
