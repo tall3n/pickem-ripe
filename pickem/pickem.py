@@ -64,9 +64,9 @@ class Pickem():
         if len(two_octets) < 2:
             logging.error("Unable to split ip address into first two octets.")
             return ""
-        first_two_octets = ".".join(two_octets)
-        logging.info(f"Collected offsets {first_two_octets} for ip: {self.ip_address}")
-        return first_two_octets
+        two_octets = ".".join(two_octets)
+        logging.info(f"Collected octests {two_octets} for ip: {self.ip_address}")
+        return two_octets
 
     def find_ip(self) -> Tuple[bool, str]:
         """Iterates through the available CIDRs returned from RIPE
@@ -76,9 +76,7 @@ class Pickem():
 
         found = False
         found_cidr = ""
-        if len(self.source_cidr_list) == 0:
-            logging.error("Empty Source CIDR List exiting.")
-        else:
+        if not len(self.source_cidr_list) == 0:
             for cidr in self.source_cidr_list:
                 if self.first_two_octets in cidr:
                     if self.ip_address in self.expanded_cidr(cidr):
